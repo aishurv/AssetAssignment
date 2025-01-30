@@ -3,51 +3,32 @@ using Microsoft.AspNetCore.Mvc;
 using DataService.Data;
 using System.Collections.Immutable;
 using DataService.Model;
+using DataService.MongoDB;
 namespace AssetAPI.Controllers
 {
     [Route("/")]
     [ApiController]
     public class AssetController : ControllerBase
     {
-        [HttpGet("/Assets")]
-        public IEnumerable<AssetData> GetAssets()
-        {
-            return txtToDataObject.Assets;
-        }
+        AssetRepository assetRepository = new AssetRepository();
 
-        [HttpGet("/Machine")]
-        public IEnumerable<MachineData> GetMachines()
+
+        [HttpGet("/Assets")]
+        public async Task<IEnumerable<AssetData>> GetAssets()
         {
-            return txtToDataObject.Machines;
-        }
-        [HttpGet("/latestAssets")]
-        public Dictionary<string, string> GetLatestAssetSeries()
-        {
-            return txtToDataObject.LatestAssetSeries;
+            return await assetRepository.GetAll();
         }
         [HttpGet("/Assets/{model}")]
         public List<AssetData> GetAssetByMachineModel(string model)
         {
-            return txtToDataObject.Assets.Where(a => a.Machines.Contains(model)).ToList();
+            return assetRepository.GetAssetByMachineModel(model);
         }
-        [HttpGet("/Machine/{name}")]
-        public List<string> GetMachineModelByAssetName(string name)
-        {
-            List<string> machines = txtToDataObject.Machines
-            .Where(model => model.assets.Any(asset => asset.Name == name))
-            .Select(model=>model.ModelName)
-            .ToList();
-            return machines;
-        }
-        [HttpGet("/MachineWithLatestAssetSeries")]
-        public List<string> GetMachineWithLatestAssetSeries()
-        {
-            List<string> machines = txtToDataObject.Machines
-            .Where(model => model.assets.All(asset => 
-            txtToDataObject.LatestAssetSeries[asset.Name] == asset.Series))
-            .Select(model=> model.ModelName)
-            .ToList();
-            return machines;
-        }
+
+
+        //[HttpGet("/latestAssets")]
+        //public Dictionary<string, string> GetLatestAssetSeries()
+        //{
+        //    return txtToDataObject.LatestAssetSeries;
+        //}
     }
 }

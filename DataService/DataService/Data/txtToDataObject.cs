@@ -37,11 +37,6 @@ namespace DataService.Data
                 Assets = new List<AssetData>();
             ExtractMachineData(DataFromFile);
             ExtractAssetData(DataFromFile);
-            
-        }
-        public static List<AssetData> GetAssets()
-        {
-            return Assets;
         }
         private static void ExtractMachineData(List<DataModel> DataFromFile)
         {
