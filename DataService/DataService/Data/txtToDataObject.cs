@@ -56,7 +56,7 @@ namespace DataService.Data
 
                 if (!existingMachine.assets.Any(a => a.Name == item.AssetType && a.Series == item.AssetSeries))
                 {
-                    existingMachine.assets.Add(new AssetData
+                    existingMachine.assets.Add(new AssetSummary
                     {
                         Name = item.AssetType,
                         Series = item.AssetSeries

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.PortableExecutable;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using DataService.Data;
-using DataService.Model;
+﻿using DataService.Model;
 using MongoDB.Driver;
 
 namespace DataService.MongoDB
@@ -15,11 +7,10 @@ namespace DataService.MongoDB
     public class MachineRepository
     {
 
-        private readonly DBService _DbService = new();
         private readonly IMongoCollection<MachineData>? _machineData;
         public MachineRepository()
         {
-            _machineData = _DbService.Database?.GetCollection<MachineData>("machine");
+            _machineData = DbContext.Database?.GetCollection<MachineData>("machine");
         }
         public Task<List<MachineData>> GetAll()
         {
@@ -36,9 +27,11 @@ namespace DataService.MongoDB
         public List<string> MachineWithLatestAssetSeries()
         {
             var machines = _machineData.Find(FilterDefinition<MachineData>.Empty).ToList();
+            var latestAssetSeriesRepo = new LatestAssetSeriesRepository();
+            var LatestAssetSeries = latestAssetSeriesRepo.GetLatestSeries();
             return machines
             .Where(model => model.assets.All(asset =>
-            txtToDataObject.LatestAssetSeries[asset.Name] == asset.Series))
+            LatestAssetSeries[asset.Name] == asset.Series))
             .Select(model => model.ModelName)
             .ToList();
         }

@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MongoDB.Driver;
 
 namespace DataService.MongoDB
 {
-    public class DBService
+    public class DbContext
     {
-        private readonly IMongoDatabase? _database;
+        private static readonly IMongoDatabase? _database;
 
-        public DBService()
+        static DbContext()
         {
             var connectionString = "mongodb://localhost:27017";  //"mongodb://localhost:27017";//_configuration.GetConnectionString("DbConnection");
             //"mongodb://mongodb:27017";
@@ -19,6 +17,6 @@ namespace DataService.MongoDB
             var mongoClient = new MongoClient(mongoUrl);
             _database = mongoClient.GetDatabase("Asset");
         }
-        public IMongoDatabase? Database => _database;
+        public static IMongoDatabase? Database => _database;
     }
 }

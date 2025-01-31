@@ -6,17 +6,16 @@ namespace DataService.Data
 {
     public class AddDataObjectToDB
     {
-        private readonly DBService _DbService = new();
         private readonly IMongoCollection<AssetData>? _assetData;
         private readonly IMongoCollection<MachineData>? _machineData;
         private readonly IMongoCollection<Dictionary<string,string>>? _latest;
         public AddDataObjectToDB()
         {
-            _assetData = _DbService.Database?.GetCollection<AssetData>("asset");
-            _machineData = _DbService.Database?.GetCollection<MachineData>("machine");
-            _latest = _DbService.Database?.GetCollection<Dictionary<string, string>>("latestseries");
+            _assetData = DbContext.Database?.GetCollection<AssetData>("asset");
+            _machineData = DbContext.Database?.GetCollection<MachineData>("machine");
+            _latest = DbContext.Database?.GetCollection<Dictionary<string, string>>("latestseries");
             //addAssets(txtToDataObject.Assets);
-            //addMachines();
+            //addMachines(txtToDataObject.Machines);
             //addLatestAssetSeries();
         }
         public void addAssets(List<AssetData> assets)

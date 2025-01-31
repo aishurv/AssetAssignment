@@ -1,19 +1,15 @@
-﻿//using Microsoft.AspNetCore.Components;
-using Microsoft.CodeAnalysis;
-using DataService.Model;
-using Microsoft.Build.Tasks.Deployment.Bootstrapper;
+﻿using DataService.Model;
 using MongoDB.Driver;
 
 namespace DataService.MongoDB
 {
     public class AssetRepository
     {
-        private readonly DBService _DbService = new();
         private readonly IMongoCollection<AssetData>? _assetData;
         
         public AssetRepository()
         {
-            _assetData = _DbService.Database?.GetCollection<AssetData>("asset");
+            _assetData = DbContext.Database?.GetCollection<AssetData>("asset");
         }
         public Task<List<AssetData>> GetAll()
         {
