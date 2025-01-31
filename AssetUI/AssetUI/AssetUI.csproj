@@ -6,4 +6,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="Components\Pages\MachineCard.razor.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\DataService\DataService\DataService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Assets\img\C300.png" />
+    <None Include="wwwroot\Assets\img\C60.png" />
+    <None Include="wwwroot\Assets\img\C40.png" />
+  </ItemGroup>
+
 </Project>
