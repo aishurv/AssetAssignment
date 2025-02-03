@@ -10,25 +10,24 @@ namespace AssetAPI.Controllers
     [ApiController]
     public class AssetController : ControllerBase
     {
-        AssetRepository assetRepository = new AssetRepository();
+        private AssetRepository _assetRepository = new AssetRepository();
 
 
         [HttpGet("/Assets")]
         public async Task<IEnumerable<AssetData>> GetAssets()
         {
-            return await assetRepository.GetAll();
+            return await _assetRepository.GetAll();
         }
         [HttpGet("/Assets/{MachineModel}")]
         public List<AssetData> GetAssetByMachineModel(string MachineModel)
         {
-            return assetRepository.GetAssetByMachineModel(MachineModel);
+            return _assetRepository.GetAssetByMachineModel(MachineModel);
+        }
+        [HttpGet("/LatestAssets")]
+        public Dictionary<string,string> GetLatestAssets()
+        {
+            return _assetRepository.GetLatestAssets();
         }
 
-
-        //[HttpGet("/latestAssets")]
-        //public Dictionary<string, string> GetLatestAssetSeries()
-        //{
-        //    return txtToDataObject.LatestAssetSeries;
-        //}
     }
 }

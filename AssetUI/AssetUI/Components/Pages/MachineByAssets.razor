@@ -1,0 +1,29 @@
+﻿@page "/MachineByAssets{assetName}"
+<h3>Machine Details</h3>
+<h1 class="mt-lg-5 ">* </h1>
+<div class=" container machine-container">
+    <div class="btn-primary  p-2 text-center">
+        <div class="btn-primary  p-2 text-center">
+            <h3> Machine Uses @assetName?.Replace("{", "").Replace("}", "")</h3>
+        </div>
+    </div>
+    <h1></h1>
+    <div class=" row m-3">
+        @if (machines == null || machines.Count() == 0)
+        {
+            <p><em>Loading... </em></p>
+            <p><em>Problem While loading Data </em></p>
+        }
+        else
+        {
+            <div class="row ">
+                @foreach (var machine in machines)
+                {
+                    <div class="col-12 ">
+                        <MachineDetailsCard Model="@machine"></MachineDetailsCard>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

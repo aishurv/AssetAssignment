@@ -77,8 +77,6 @@ namespace DataService.Data
                 {
                     existigAsset.Machines.Add(item.MachineModel);
                 }
-
-
             }
         }
     }

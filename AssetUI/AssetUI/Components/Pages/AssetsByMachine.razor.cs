@@ -1,18 +1,23 @@
 ﻿using Microsoft.AspNetCore.Components;
 using DataService.Model;
 using DataService.MongoDB;
+using AssetUI.Services;
 namespace AssetUI.Components.Pages
 {
     public partial class AssetsByMachine
     {
+        [Inject]
+        private AssetService? _assetService { get; set; }
         [Parameter]
-        public string MachineName { get; set; }
-        public List<AssetData> AssetData { get; set; }
-        private AssetRepository assetRepository = new AssetRepository();
-        protected override void OnInitialized()
+        public string? MachineName { get; set; }
+        public List<AssetData>? AssetsData { get; set; }
+        protected override async Task OnInitializedAsync()
         {
-            assetRepository = new AssetRepository();
-            AssetData = assetRepository.GetAssetByMachineModel(MachineName);
+            AssetsData = await _assetService!.GetAssetByMachineModel(MachineName?.ToString() ??"CS300");
+            if(AssetsData == null || AssetsData.Count()==0)
+            {
+                Console.WriteLine("not getting Data");
+            }
         }
 
     }

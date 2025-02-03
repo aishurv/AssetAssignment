@@ -41,7 +41,10 @@ namespace DataService.MongoDB
                 await AddAsset(asset);
             }
         }
-
+        public Dictionary<string,string> GetLatestAssets()
+        {
+            return _latestAssetSeriesRepository.GetLatestSeries();
+        }
 
 
     }

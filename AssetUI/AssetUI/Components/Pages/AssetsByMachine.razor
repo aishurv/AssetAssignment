@@ -3,11 +3,11 @@
 <h1 class="mt-lg-5 ">* </h1>
 <div class=" container machine-container">
     <div class="btn-primary  p-2 text-center">
-            <h3> Asset Overview </h3>
+        <h3> Asset Overview Of Machine Model @MachineName?.Replace("{", "").Replace("}", "")</h3>
     </div>
-    <h1>@MachineName</h1>
+    <h1></h1>
     <div class=" row m-3">
-        @if (AssetData == null)
+        @if (AssetsData == null || AssetsData.Count() ==0)
         {
             <p><em>Loading... </em></p>
             <p><em>Problem While loading Data </em></p>
@@ -15,18 +15,10 @@
         else
         {
             <div class="row ">
-                @foreach (var asset in AssetData)
+                @foreach (var asset in AssetsData)
                 {
-                    <h1>test</h1>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
-                        <ErrorBoundary>
-                            <ChildContent>
-                                <AssetDetailsCard AssetData="asset"></AssetDetailsCard>
-                            </ChildContent>
-                            <ErrorContent>
-                                <p class="errorUI">Invalid Machine!</p>
-                            </ErrorContent>
-                        </ErrorBoundary>
+                           <AssetDetailsCard AssetData="asset"></AssetDetailsCard>
                     </div>
                 }
             </div>

@@ -1,11 +1,17 @@
 using AssetUI.Components;
-
+using AssetUI.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddHttpClient("AssetAPI", client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5282/");
+});
+builder.Services.AddScoped<AssetService>();
+builder.Services.AddScoped<MachineDataService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

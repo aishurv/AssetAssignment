@@ -1,0 +1,21 @@
+﻿@page "/Assets"
+<h1 class="mt-lg-5 ">* </h1>
+<h3>Assets Details</h3>
+<div class=" row m-3">
+    @if (AssetsData == null || AssetsData.Count() == 0)
+    {
+        <p><em>Loading... </em></p>
+        <p><em>Problem While loading Data </em></p>
+    }
+    else
+    {
+        <div class="row ">
+            @foreach (var asset in AssetsData)
+            {
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                    <AssetDetailsCard AssetData="asset"></AssetDetailsCard>
+                </div>
+            }
+        </div>
+    }
+</div>

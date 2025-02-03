@@ -35,6 +35,7 @@ namespace DataService.MongoDB
                 {
                     LatestAssetSeries[pair.Name] = pair.Value.ToString()!;
                 }
+                LatestAssetSeries.Remove("_id");
                 return LatestAssetSeries;
             }
             return new Dictionary<string, string>();

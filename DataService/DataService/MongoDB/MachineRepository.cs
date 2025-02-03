@@ -15,6 +15,11 @@ namespace DataService.MongoDB
         {
             return _machineData.Find(FilterDefinition<MachineData>.Empty).ToListAsync();
         }
+        public Task<MachineData> GetById(string id)
+        {
+            var filter = Builders<MachineData>.Filter.Eq("_id", id);
+            return _machineData.Find(filter).FirstOrDefaultAsync();
+        }
         public List<string> GetMachineModelByAssetName(string assetName)
         {
             var machines = _machineData.Find(FilterDefinition<MachineData>.Empty).ToList();
