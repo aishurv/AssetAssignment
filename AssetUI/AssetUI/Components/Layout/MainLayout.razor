@@ -1,8 +1,8 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <main>
-
+    <div class=" navbar-brand">
+        
         <article class="content px-1">
             <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
                 <div class="container-fluid">
@@ -24,11 +24,11 @@
                                 <a class="nav-link active" aria-current="page" href="/"><h4>Home</h4></a>
                             </li>
                             <li class="nav-item dropdown">
-                                
-                                    <a class="nav-link dropdown-toggle nav-link active" href="#" id="navbarDropdown" role="button"
+
+                                <h4 class="nav-link dropdown-toggle nav-link active" href="#" id="navbarDropdown" role="button"
                                    data-bs-toggle="dropdown">
-                                     Machines 
-                                </a>
+                                        Machines
+                                </h4>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="/Machine">All Machines</a></li>
                                     <li><hr class="dropdown-divider"></li>
@@ -45,8 +45,13 @@
 
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-            @Body
         </article>
+
+    </div>
+    <main>
+
+        <h1 class="mt-lg-5 ">* </h1>
+            @Body
     </main>
 </div>
 
