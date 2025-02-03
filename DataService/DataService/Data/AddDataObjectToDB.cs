@@ -1,37 +1,24 @@
-﻿using DataService.Model;
-using DataService.MongoDB;
-using MongoDB.Driver;
+﻿using DataService.MongoDB;
 
 namespace DataService.Data
 {
     public class AddDataObjectToDB
     {
-        private readonly IMongoCollection<AssetData>? _assetData;
-        private readonly IMongoCollection<MachineData>? _machineData;
-        private readonly IMongoCollection<Dictionary<string,string>>? _latest;
+        private readonly AssetRepository _assetRepository;
+        private readonly MachineRepository _machineRepository;
         public AddDataObjectToDB()
         {
-            _assetData = DbContext.Database?.GetCollection<AssetData>("asset");
-            _machineData = DbContext.Database?.GetCollection<MachineData>("machine");
-            _latest = DbContext.Database?.GetCollection<Dictionary<string, string>>("latestseries");
-            //addAssets(txtToDataObject.Assets);
-            //addMachines(txtToDataObject.Machines);
-            //addLatestAssetSeries();
+            _assetRepository = new AssetRepository();
+            _machineRepository = new MachineRepository();
         }
-        public void addAssets(List<AssetData> assets)
+       
+        public async Task AddAssets()
         {
-            _assetData.InsertMany(assets);
+            await _assetRepository.AddAssets(txtToDataObject.Assets);
         }
-        public void addMachines(List<MachineData> machines)
+        public async Task AddMachineData()
         {
-            //var machines = txtToDataObject.Machines;
-            _machineData.InsertMany(machines);
-        }
-        public void addLatestAssetSeries(Dictionary<string, string> latest)
-        {
-            //var latest = txtToDataObject.LatestAssetSeries;
-            _latest.InsertMany((IEnumerable<Dictionary<string, string>>)latest);
-
+            await _machineRepository.AddMachinesData(txtToDataObject.Machines);
         }
     }
 }

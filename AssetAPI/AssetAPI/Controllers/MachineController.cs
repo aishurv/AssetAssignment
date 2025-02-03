@@ -15,10 +15,10 @@ namespace AssetAPI.Controllers
         {
             return await machineRepository.GetAll();
         }
-        [HttpGet("{name}")]
-        public List<string> GetMachineModelByAssetName(string name)
+        [HttpGet("{AssetName}")]
+        public List<string> GetMachineModelByAssetName(string AssetName)
         {
-            return machineRepository.GetMachineModelByAssetName(name);
+            return machineRepository.GetMachineModelByAssetName(AssetName);
         }
         [HttpGet("/MachineWithLatestAssetSeries")]
         public List<string> GetMachineWithLatestAssetSeries()

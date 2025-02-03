@@ -1,5 +1,11 @@
+using DataService.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
+AddDataObjectToDB addDataToDB = new AddDataObjectToDB();
+
+await addDataToDB.AddAssets();
+await addDataToDB.AddMachineData();
 // Add services to the container.
 
 builder.Services.AddControllers();

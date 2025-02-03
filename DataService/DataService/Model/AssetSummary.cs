@@ -6,8 +6,8 @@ namespace DataService.Model
     public class AssetSummary
     {
         [BsonElement("Name")]
-        public string Name { get; set; }
+        public virtual string? Name { get; set; }
         [BsonElement("Series")]
-        public string Series { get; set; }
+        public virtual string? Series { get; set; }
     }
 }

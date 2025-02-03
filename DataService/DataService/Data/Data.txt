@@ -1,5 +1,4 @@
-﻿Model, AssetType, AssetSeries
-C300, Cutter head, S6
+﻿C300, Cutter head, S6
 C40, Cutter head, S7
 C300, Blade safety cover, S10
 C60, Blade safety cover, S11

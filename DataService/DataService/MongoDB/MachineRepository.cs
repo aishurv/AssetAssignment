@@ -1,6 +1,5 @@
 ﻿using DataService.Model;
 using MongoDB.Driver;
-
 namespace DataService.MongoDB
 {
 
@@ -31,9 +30,29 @@ namespace DataService.MongoDB
             var LatestAssetSeries = latestAssetSeriesRepo.GetLatestSeries();
             return machines
             .Where(model => model.assets.All(asset =>
-            LatestAssetSeries[asset.Name] == asset.Series))
+            LatestAssetSeries[asset.Name!] == asset.Series))
             .Select(model => model.ModelName)
             .ToList();
+        }
+
+        public async Task AddMachineData(MachineData  machineData)
+        {
+            var filter = Builders<MachineData>.Filter.Eq("_id", machineData.ModelName);
+            var data = await _machineData.Find(filter).FirstOrDefaultAsync();
+            if (data == null)
+            {
+
+                Console.WriteLine("Trying to add Machine Data! ");
+                _machineData!.InsertOne(machineData);
+                Console.WriteLine("Machine Data Added ! ");
+            }
+        }
+        public async Task AddMachinesData(List<MachineData> machinesData)
+        {
+            foreach (var machineData in machinesData)
+            {
+                await AddMachineData(machineData);
+            }
         }
     }
 }
