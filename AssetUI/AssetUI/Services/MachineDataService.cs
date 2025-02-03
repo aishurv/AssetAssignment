@@ -14,6 +14,11 @@ namespace AssetUI.Services
             var machines = await _httpClient.GetFromJsonAsync<List<MachineData>>("Machines");
             return machines ?? new List<MachineData>();
         }
+        public async Task<List<string>> GetLatestAssetSeriesMachines()
+        {
+            var machines = await _httpClient.GetFromJsonAsync<List<string>>("MachineWithLatestAssetSeries");
+            return machines ?? new List<string>();
+        }
         public async Task<List<string>> GetMachineModelByAssetName(string assetName)
         {
             var req = "Machine/Asset/";

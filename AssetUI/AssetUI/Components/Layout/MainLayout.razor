@@ -4,7 +4,7 @@
     <main>
 
         <article class="content px-1">
-            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary ">
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/">
                         <img src="Assets/img/logo.png" width="50" height="50" class="d-inline-block align-top ms-lg-5 rounded-2"
@@ -16,22 +16,35 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
+                    <h3 class="text-white ms-3">Machines To Assets Map</h3>
+
                     <div class="collapse navbar-collapse" id="navbarCollapse">
-                        <h3 class="text-white"> Machines To Assets Map </h3>
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/"><h4>Home</h4></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                
+                                    <a class="nav-link dropdown-toggle nav-link active" href="#" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown">
+                                     Machines 
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/Machine">All Machines</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="/LatestMachine">Machines With <br /> Latest Asset Series</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/Assets"><h4>Assets</h4></a>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class=" navbar-nav mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/"><h4>Home</h4></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/Machine"><h4>Machines</h4></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/Assets"><h4>Assets</h4></a>
-                        </li>
-                    </ul>
                 </div>
             </nav>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
             @Body
         </article>
     </main>
