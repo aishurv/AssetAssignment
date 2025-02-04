@@ -1,0 +1,15 @@
+docker run -d --name mongodb --network asset_network -p 27017:27017 mongo
+
+docker build -t asset_api .
+
+docker run -d --name api --network asset_network -p 5282:5282 -v D:\AssetAssignment\DataService\DataService\Data\Data.txt:/app/Data.txt asset_api
+
+docker run -d --name api `
+  --network asset_network `
+  -p 5282:5282 `
+  -v D:\AssetAssignment\DataService\DataService\Data\Data.txt:/app/Data.txt `
+  asset_api
+
+docker build -t asset_ui .
+
+docker run -d --name ui --network asset_network -p 8080:8080 asset_ui

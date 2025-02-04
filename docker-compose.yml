@@ -1,0 +1,41 @@
+services:
+  # MongoDB Service
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network2
+
+  # API Service
+  api:
+    image: assetapi:dev  # Replace with your actual API Docker image name
+    container_name: api
+    ports:
+      - "8080:5282"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network2
+
+  # Blazor UI Service
+  ui:
+    image: assetui:dev  # Replace with your actual Blazor UI Docker image name
+    container_name: ui
+    ports:
+      - "8080:8080"  # Map host port 8080 to container port 8080
+      - "8081:8081"
+    networks:
+      - app-network2
+
+# Volumes
+volumes:
+  mongodb_data:
+
+# Networks
+networks:
+  app-network2:
+    driver: bridge
