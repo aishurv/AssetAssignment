@@ -3,7 +3,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copy everything (including dependencies like DataService)
-COPY AssetAPI/AssetAPI.csproj 
+COPY AssetAPI/AssetAPI.csproj ./
+COPY AssetAPI/ ./
+
+RUN dotnet restore
 # Restore dependencies
 RUN dotnet restore AssetAPI.csproj
 

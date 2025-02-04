@@ -4,7 +4,7 @@ namespace DataService.Data
 {
     public static class txtToDataObject
     {
-        static string FilePath = "DataService/Data/Data.txt";
+        static string FilePath = "/app/Data.txt";
         public static List<MachineData> Machines;
         public static List<AssetData> Assets;
         static txtToDataObject()

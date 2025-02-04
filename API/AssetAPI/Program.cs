@@ -1,7 +1,10 @@
 using DataService.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5282); // Ensure the app listens on the correct port
+});
 AddDataObjectToDB addDataToDB = new AddDataObjectToDB();
 
 await addDataToDB.AddAssets();

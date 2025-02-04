@@ -1,3 +1,5 @@
+docker network create my_network
+
 docker run -d --name mongodb --network asset_network -p 27017:27017 mongo
 
 docker build -t asset_api .
@@ -13,3 +15,20 @@ docker run -d --name api `
 docker build -t asset_ui .
 
 docker run -d --name ui --network asset_network -p 8080:8080 asset_ui
+
+docker run -d --name test_api --network test_network -p 5282:5282 -v D:\Data.txt:/app/Data.txt test_api
+
+docker build -t test_api .
+
+docker run -d --name test_ui --network test_network -p 8080:8080 test_ui
+
+
+
+
+docker network create assignment_network
+
+docker run -d --name assignment_mongodb --network asset_network -p 27017:27017 mongo
+
+docker run -d --name assignment_api --network assignment_network-p 5282:5282 -v D:\Data.txt:/app/Data.txt assignment_api
+
+docker run -d --name assignment_ui --network assignment_network-p 8080:8080 assignment_ui
