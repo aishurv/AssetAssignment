@@ -2,6 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
+ENV ASPNETCORE_ENVIRONMENT=Development
 # Copy everything (including dependencies like DataService)
 COPY AssetAPI/AssetAPI.csproj ./
 COPY AssetAPI/ ./
