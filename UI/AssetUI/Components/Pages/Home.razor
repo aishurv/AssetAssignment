@@ -3,10 +3,18 @@
 <PageTitle>Home</PageTitle>
 
 <div class=" container machine-container">
-    <div class="btn-primary  p-2 text-center">
-        <a href="/machine" class="btn text-white">
-            <h3> Machine Overview (view all)</h3>
-        </a>
+    
+    <div class="bg-primary  p-2 text-center">
+        <div class="btn text-white">
+            <h3> Machine Overview (view all)
+                <a href="/MachineTable" class="btn-primary p-1">
+                    <i class="bi bi-table"></i>
+                </a>
+                <a href="/Machine" class="btn-primary p-1">
+                    <i class="bi bi-filter-square"></i>
+                </a>
+            </h3>
+        </div>
         
     </div>
     <div class=" row m-3">
@@ -43,10 +51,17 @@
 </div>
 <br />
 <div class=" container asset-container">
-    <div class="btn-primary p-2 text-center">
-        <a href="/Assets" class="btn text-white">
-            <h3> Latest Assets Overview (View all Assets Information )</h3>
-        </a>
+    <div class="bg-primary p-2 text-center">
+        <div class="btn text-white">
+            <h3> Latest Assets Overview (View all Assets Information )
+                <a href="/AssetsTable" class="btn-primary p-1">
+                    <i class="bi bi-table"></i>
+                </a>
+                <a href="/Assets" class="btn-primary p-1">
+                    <i class="bi bi-filter-square"></i>
+                </a>
+            </h3>
+        </div>
     </div>
     <div class=" row m-3">
         @if (assets == null)

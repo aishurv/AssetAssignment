@@ -5,9 +5,13 @@ namespace DataService.Data
     public static class txtToDataObject
     {
         static string FilePath = "/app/Data.txt";
-        public static List<MachineData> Machines;
-        public static List<AssetData> Assets;
+        public static List<MachineData> Machines = [];
+        public static List<AssetData> Assets = [];
         static txtToDataObject()
+        {
+            LoadData();
+        }
+        public static void LoadData()
         {
             List<DataModel> DataFromFile = new List<DataModel>();
 

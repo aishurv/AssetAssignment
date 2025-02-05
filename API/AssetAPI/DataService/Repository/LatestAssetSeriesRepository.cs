@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using DataService.ExtensionMethods;
+using DataService.Model;
 namespace DataService.MongoDB
 {
     public class LatestAssetSeriesRepository
@@ -63,6 +64,10 @@ namespace DataService.MongoDB
                 return LatestAssetSeries;
             }
             return new Dictionary<string, string>();
+        }
+        public async Task DeleteAll()
+        {
+            await _latestSeries!.DeleteManyAsync(FilterDefinition<BsonDocument>.Empty);
         }
 
     }

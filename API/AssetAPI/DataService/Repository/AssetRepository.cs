@@ -1,4 +1,5 @@
 ﻿using DataService.Model;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DataService.MongoDB
@@ -44,7 +45,10 @@ namespace DataService.MongoDB
         {
             return _latestAssetSeriesRepository.GetLatestSeries();
         }
-
+        public async Task DeleteAll()
+        {
+            await _assetData!.DeleteManyAsync(FilterDefinition<AssetData>.Empty);
+        }
 
     }
 }

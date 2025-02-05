@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Json;
-using DataService.Model;
+﻿using DataService.Model;
 namespace AssetUI.Services
 {
     public class AssetService

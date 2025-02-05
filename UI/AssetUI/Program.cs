@@ -12,6 +12,7 @@ builder.Services.AddHttpClient("AssetAPI", client =>
 });
 builder.Services.AddScoped<AssetService>();
 builder.Services.AddScoped<MachineDataService>();
+builder.Services.AddScoped<DataLoadingService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

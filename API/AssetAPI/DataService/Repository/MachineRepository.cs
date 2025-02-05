@@ -59,5 +59,9 @@ namespace DataService.MongoDB
                 await AddMachineData(machineData);
             }
         }
+        public async Task DeleteAll()
+        {
+            await _machineData!.DeleteManyAsync(FilterDefinition<MachineData>.Empty);
+        }
     }
 }
