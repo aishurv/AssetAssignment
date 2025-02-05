@@ -22,7 +22,7 @@ namespace DataService.Data
                     DataFromFile.Add(new DataModel
                     {
                         MachineModel = values[0],
-                        AssetType = values[1],
+                        AssetName = values[1],
                         AssetSeries = values[2]
                     });
                 }
@@ -49,11 +49,11 @@ namespace DataService.Data
                     Machines.Add(existingMachine);
                 }
 
-                if (!existingMachine.assets.Any(a => a.Name == item.AssetType && a.Series == item.AssetSeries))
+                if (!existingMachine.assets.Any(a => a.Name == item.AssetName && a.Series == item.AssetSeries))
                 {
                     existingMachine.assets.Add(new AssetSummary
                     {
-                        Name = item.AssetType,
+                        Name = item.AssetName,
                         Series = item.AssetSeries
                     });
                 }
@@ -63,12 +63,12 @@ namespace DataService.Data
         {
             foreach (var item in DataFromFile)
             {
-                var existigAsset = Assets.FirstOrDefault(a => a.Name == item.AssetType && a.Series == item.AssetSeries);
+                var existigAsset = Assets.FirstOrDefault(a => a.Name == item.AssetName && a.Series == item.AssetSeries);
                 if (existigAsset == null)
                 {
                     existigAsset = new AssetData
                     {
-                        Name = item.AssetType,
+                        Name = item.AssetName,
                         Series = item.AssetSeries,
                         Machines = new List<string> { item.MachineModel }
                     };

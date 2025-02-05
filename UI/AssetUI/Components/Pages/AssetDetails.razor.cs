@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace AssetUI.Components.Pages
 {
-    public partial class Assets
+    public partial class AssetDetails
     {
         [Inject]
         private AssetService? _assetService { get; set; }

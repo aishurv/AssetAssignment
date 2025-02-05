@@ -14,7 +14,7 @@ namespace DataService.Model
                     Id = GenerateID();
             }
         } 
-        public List<string> Machines { get; set; }
+        public List<string> Machines { get; set; } = new List<string>();
 
         public override required string? Name { get => base.Name!;
             set {
@@ -32,9 +32,7 @@ namespace DataService.Model
                     GenerateID();
             }
         }
-        public AssetData() {
-            Machines = new List<string>();
-        }
+       
         private string GenerateID()
         {
             string id = string.Empty;

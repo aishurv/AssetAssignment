@@ -21,27 +21,13 @@ namespace DataService.MongoDB
                 _latestSeries!.InsertOne(InsertBsonDoc);
             }
             else
-            {  
-                Update(AssetName, Series , bsonDoc);               
-            }
-        }
-        public Dictionary<string, string> GetLatestSeries( )
-        {
-            var bsonDoc = _latestSeries.Find(new BsonDocument()).FirstOrDefault();
-            if (bsonDoc != null)
             {
-                var LatestAssetSeries = new Dictionary<string, string>();
-                foreach(var pair in bsonDoc.Elements)
-                {
-                    LatestAssetSeries[pair.Name] = pair.Value.ToString()!;
-                }
-                LatestAssetSeries.Remove("_id");
-                return LatestAssetSeries;
+                Update(AssetName, Series, bsonDoc);
             }
-            return new Dictionary<string, string>();
         }
+        
         public void Update(string Asset, string AssetSeries, BsonDocument bsonDoc)
-        { 
+        {
             var updateDefinition = new List<UpdateDefinition<BsonDocument>>();
 
             if(bsonDoc.Contains(Asset))
@@ -63,6 +49,21 @@ namespace DataService.MongoDB
                 Console.WriteLine("Updated dictionary with selected values.");
             }
         }
-        
+        public Dictionary<string, string> GetLatestSeries()
+        {
+            var bsonDoc = _latestSeries.Find(new BsonDocument()).FirstOrDefault();
+            if (bsonDoc != null)
+            {
+                var LatestAssetSeries = new Dictionary<string, string>();
+                foreach (var pair in bsonDoc.Elements)
+                {
+                    LatestAssetSeries[pair.Name] = pair.Value.ToString()!;
+                }
+                LatestAssetSeries.Remove("_id");
+                return LatestAssetSeries;
+            }
+            return new Dictionary<string, string>();
+        }
+
     }
 }

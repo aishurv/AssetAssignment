@@ -24,7 +24,6 @@ namespace AssetUI.Services
             var req = "Machine/Asset/";
             assetName=assetName.Replace("{", "").Replace("}", "");
             req += assetName.Replace(" ","%20");
-            Console.WriteLine(req);
             var machines = await _httpClient.GetFromJsonAsync<List<string>>(req);
             return machines ?? [];
         }
@@ -33,9 +32,6 @@ namespace AssetUI.Services
             var req = "Machine/";
             id = id.Replace("{", "").Replace("}", "");
             req += id;
-            Console.WriteLine(req);
-            Console.WriteLine(req);
-            Console.WriteLine(id);
             var data = await _httpClient.GetFromJsonAsync<MachineData>(req);
             return data!;
         }
