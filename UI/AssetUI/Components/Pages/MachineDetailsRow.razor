@@ -1,0 +1,47 @@
+﻿@using AssetUI.Services
+@using DataService.Model
+@inject GetImageService GetImageService
+<tr>
+    @if(MachineData!=null)
+    {
+        <td><strong>@MachineData!.ModelName</strong></td>
+        <td>
+            <img src=@(GetImageService.GetImage(MachineData!.ModelName,"Machine"))
+                 class="img-fluid rounded"
+                 style="max-width: 100px; height: auto;" />
+        </td>
+        <td>
+            @if (MachineData.Assets.Any())
+            {
+                <ul class="list-unstyled mb-0">
+                    @foreach (var asset in MachineData.Assets)
+                    {
+                        <li><strong>@asset.Name</strong> (Series: @asset.Series)</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <span class="text-muted">No Assets Assigned</span>
+            }
+        </td>
+    }
+    else
+    {
+        <td>Error !</td>
+    }
+    
+</tr>
+
+
+@code{
+    [Inject]
+    private MachineDataService? machineDataService { get; set; }
+    [Parameter]
+    public string? Model { get; set; }
+    public MachineData? MachineData;
+    protected async override Task OnInitializedAsync()
+    {
+        MachineData = await machineDataService?.GetById(Model!)!;
+    }
+}

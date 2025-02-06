@@ -1,0 +1,31 @@
+﻿@using AssetUI.Services
+@rendermode InteractiveServer
+<button class="btn btn-primary text-white border rounded p-1"
+        @onclick="LoadData1">
+    Load Data
+</button>
+
+<script>
+
+
+    function showAlert(message)
+     {
+        alert(message);
+        location.reload();
+     }
+</script>
+
+
+@code {
+
+    [Inject]
+    public IJSRuntime? JSRuntime { get; set; }
+    [Inject]
+    private DataLoadingService? _dataLoadingService { get; set; }
+    public void LoadData1()
+    {
+        _dataLoadingService!.LoadData();
+        Console.WriteLine("Data Loaded !");
+        JSRuntime!.InvokeVoidAsync("showAlert", "Successfully Data Loaded !");
+    }
+}

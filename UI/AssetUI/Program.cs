@@ -8,7 +8,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient("AssetAPI", client =>
 {
-    client.BaseAddress = new Uri("http://assignment_api:5282/"); //  localhost
+    client.BaseAddress = new Uri("http://assignment_api:5282/"); //  localhost  assignment_api
 });
 builder.Services.AddScoped<AssetService>();
 builder.Services.AddScoped<MachineDataService>();

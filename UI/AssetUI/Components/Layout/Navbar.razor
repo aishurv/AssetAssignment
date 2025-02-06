@@ -1,5 +1,4 @@
 ﻿@using AssetUI.Services
-@rendermode InteractiveServer
 <div class=" navbar-brand">
 
     <article class="content px-1">
@@ -29,48 +28,26 @@
                                 Machines
                             </h4>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/Machine">All Machines</a></li>
+                                <li><a class="dropdown-item" href="/MachineTable">All Machines</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="/LatestMachine">Machines With <br /> Latest Asset Series</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/Assets"><h4>Assets</h4></a>
+                            <a class="nav-link active" aria-current="page" href="/AssetsTable"><h4>Assets</h4></a>
                         </li>
-                        <button class="btn btn-primary text-white border rounded p-1"
-                                @onclick="LoadData1">
-                            Load Data
-                        </button>
+                        <li class="nav-item align-content-center">
+                            <LoadDataButton></LoadDataButton>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 
     </article>
 
 </div>
 
-<script>
-    function showAlert(message)
-    {
-    alert(message);
-    }
-</script>
-@code {
 
-    [Inject]
-    public IJSRuntime? JSRuntime { get; set; }
-    [Inject]
-    private DataLoadingService? _dataLoadingService { get; set; }
-    public void LoadData1()
-    {
-        Console.WriteLine("Data Load Button Clicked !");
-        _dataLoadingService!.LoadData();
-        Console.WriteLine("Data Loaded !");
-
-        JSRuntime!.InvokeVoidAsync("showAlert", "Loading Data !");
-    }
-}

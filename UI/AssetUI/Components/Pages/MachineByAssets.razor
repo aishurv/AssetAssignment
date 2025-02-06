@@ -1,12 +1,16 @@
 ﻿@page "/MachineByAssets{assetName}"
-<h3>Machine Details</h3>
-<h1 class="mt-lg-5 ">* </h1>
+@using AssetUI.Services
+@rendermode InteractiveServer
+
 <div class=" container machine-container">
     <div class="btn-primary  p-2 text-center">
         <div class="btn-primary  p-2 text-center">
             <h3> Machine Uses @assetName?.Replace("{", "").Replace("}", "")</h3>
         </div>
     </div>
+      <div class=" align-content-center  ">  
+          <h3 class=" ps-2"> Card View <InputCheckbox class="bi bi-filter-square ps-2" @bind-Value="@IsCardView" /></h3> 
+      </div>  
     <h1></h1>
     <div class=" row m-3">
         @if (machines == null || machines.Count() == 0)
@@ -14,7 +18,7 @@
             <p><em>Loading... </em></p>
             <p><em>Problem While loading Data </em></p>
         }
-        else
+        else if (IsCardView)
         {
             <div class="row ">
                 @foreach (var machine in machines)
@@ -24,6 +28,27 @@
                     </div>
                 }
             </div>
+
         }
+        else 
+        {
+            <div class="table-responsive">
+                 <table class="table table-striped table-bordered text-center align-middle">
+                    <thead class="bg-primary text-white">
+                          <tr>  
+                              <th>Machine Model</th>  
+                              <th>Image</th>  
+                              <th>Assets Used</th>  
+                          </tr>  
+                      </thead>  
+                      <tbody>  
+                         @foreach (var machine in machines)  
+                         {  
+                            <MachineDetailsRow Model="@machine"></MachineDetailsRow>  
+                         }  
+                    </tbody>  
+                 </table>  
+              </div>  
+          }  
     </div>
 </div>

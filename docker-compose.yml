@@ -12,7 +12,7 @@ services:
       - "27017:27017"
 
   api:
-    build: API/.
+    image: asset_api:v1
     container_name: assignment_api
     networks:
       - assignment_network

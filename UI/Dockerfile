@@ -1,6 +1,9 @@
 # Use .NET SDK to build the application
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+
 WORKDIR /app
+
+ENV ASPNETCORE_ENVIRONMENT=Development
 COPY AssetUI/*.csproj ./
 RUN dotnet restore
 COPY AssetUI/ ./

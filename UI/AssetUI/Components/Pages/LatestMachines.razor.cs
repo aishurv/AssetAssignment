@@ -9,6 +9,7 @@ namespace AssetUI.Components.Pages
         [Inject]
         private MachineDataService? machineDataService { get; set; }
         public List<string>? MachineData;
+        private bool IsCardView { get; set; } = false;
         protected async override Task OnInitializedAsync()
         {
             MachineData = await machineDataService?.GetLatestAssetSeriesMachines()!;
