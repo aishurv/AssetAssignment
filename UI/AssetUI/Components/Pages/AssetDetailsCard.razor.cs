@@ -6,5 +6,6 @@ namespace AssetUI.Components.Pages
     {
         [Parameter]
         public AssetData AssetData { get; set; } = default!;
+        
     }
 }

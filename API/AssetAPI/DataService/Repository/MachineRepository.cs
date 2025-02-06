@@ -40,16 +40,17 @@ namespace DataService.MongoDB
             .ToList();
         }
 
-        public async Task AddMachineData(MachineData  machineData)
+        public async Task AddMachineData(MachineData machineData)
         {
             var filter = Builders<MachineData>.Filter.Eq("_id", machineData.ModelName);
             var data = await _machineData.Find(filter).FirstOrDefaultAsync();
             if (data == null)
             {
-
-                Console.WriteLine("Trying to add Machine Data! ");
                 _machineData!.InsertOne(machineData);
-                Console.WriteLine("Machine Data Added ! ");
+            }
+            else
+            {
+                await UpdateAssetsByIdAsync(machineData.ModelName, machineData);
             }
         }
         public async Task AddMachinesData(List<MachineData> machinesData)
@@ -62,6 +63,15 @@ namespace DataService.MongoDB
         public async Task DeleteAll()
         {
             await _machineData!.DeleteManyAsync(FilterDefinition<MachineData>.Empty);
+        }
+        public async Task<bool> UpdateAssetsByIdAsync(string id, MachineData updatedMachine)
+        {
+            var filter = Builders<MachineData>.Filter.Eq(m => m.ModelName, id);
+            var update = Builders<MachineData>.Update
+                .Set(a => a.assets, updatedMachine.assets);
+
+            var result = await _machineData!.UpdateOneAsync(filter, update);
+            return result.ModifiedCount > 0;
         }
     }
 }

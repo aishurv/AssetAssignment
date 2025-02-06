@@ -1,11 +1,13 @@
-﻿<div class="col p-2 rounded-2 ">
+﻿@using AssetUI.Services
+@inject GetImageService GetImageService
+<div class="col p-2 rounded-2 ">
     <div class="card rounded-3 employee-card sm-12">
         <div class="card-header py-3 text-center">
             <h4>@MachineData?.ModelName</h4>
         </div>
         <div class="card-body text-center border-1 rounded-2 ">
             <div class="mb-12">
-                <img src=@($"Assets/img/{@MachineData?.ModelName}.png") class="img-fluid" />
+                <img src=@(GetImageService.GetImage(@MachineData?.ModelName!,"Machine")) class="img-fluid" />
             </div>
         </div>
         

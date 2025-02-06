@@ -33,6 +33,10 @@ namespace DataService.MongoDB
                 await _assetData!.InsertOneAsync(asset);
                 _latestAssetSeriesRepository.Insert(asset.Name!, asset.Series!);
             }
+            else
+            {
+                await UpdateMachinesByIdAsync(asset.Id!, asset);
+            }
         }
         public async Task AddAssets(List<AssetData> assets)
         {
@@ -48,6 +52,15 @@ namespace DataService.MongoDB
         public async Task DeleteAll()
         {
             await _assetData!.DeleteManyAsync(FilterDefinition<AssetData>.Empty);
+        }
+        public async Task<bool> UpdateMachinesByIdAsync(string id, AssetData updatedAsset)
+        {
+            var filter = Builders<AssetData>.Filter.Eq(a => a.Id, id);
+            var update = Builders<AssetData>.Update
+                .Set(a => a.Machines, updatedAsset.Machines);
+
+            var result = await _assetData!.UpdateOneAsync(filter, update);
+            return result.ModifiedCount > 0;
         }
 
     }

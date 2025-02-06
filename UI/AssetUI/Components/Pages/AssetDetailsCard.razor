@@ -1,4 +1,6 @@
-﻿<div class="col">
+﻿@using AssetUI.Services
+@inject GetImageService GetImageService
+<div class="col">
     <div class="card rounded-3 employee-card">
         <div class="card-header py-3 text-center">
             <h4>@AssetData.Name</h4>
@@ -8,7 +10,7 @@
         </div>
         <div class="card-body text-center">
             <div class="mb-3">
-                <img src=@($"Assets/img/{AssetData.Name}.png") class="img-fluid" />
+                <img src=@(GetImageService.GetImage(@AssetData.Name!,"Asset")) class="img-fluid" />
             </div>
         </div>
         <div class="card-body text-center">

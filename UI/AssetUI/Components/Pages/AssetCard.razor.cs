@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using DataService.Model;
 namespace AssetUI.Components.Pages
 {
     public partial class AssetCard
@@ -9,5 +8,6 @@ namespace AssetUI.Components.Pages
         
         [Parameter]
         public string AssetSeries { get; set; } = default!;
+        
     }
 }

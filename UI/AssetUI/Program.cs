@@ -8,11 +8,13 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient("AssetAPI", client =>
 {
-    client.BaseAddress = new Uri("http://assignment_api:5282/");
+    client.BaseAddress = new Uri("http://assignment_api:5282/"); //  localhost
 });
 builder.Services.AddScoped<AssetService>();
 builder.Services.AddScoped<MachineDataService>();
 builder.Services.AddScoped<DataLoadingService>();
+builder.Services.AddSingleton<GetImageService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

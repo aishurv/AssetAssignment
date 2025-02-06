@@ -15,7 +15,8 @@ namespace AssetUI.Components.Pages
         public Dictionary<string, string> LatestAssets = [];
 
         protected override async Task OnInitializedAsync()  
-        {   
+        {
+            Console.WriteLine("Home OnInitializedAsync");
             LatestAssets = await _assetService?.GetLatestAssetsAsync()!;
             assets = await _assetService.GetAllAsync();
             machines = await machineDataService?.GetAllAsync()!;

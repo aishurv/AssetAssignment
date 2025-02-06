@@ -1,4 +1,6 @@
-﻿@page "/AssetsTable"
+﻿@using AssetUI.Services
+@inject GetImageService GetImageService
+@page "/AssetsTable"
 <h1 class="mt-lg-5 btn-outline-secondary"> </h1>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 <h3 class=" text-center btn-primary p-2">
@@ -36,10 +38,10 @@
                                 <td><strong>@asset.Name</strong></td>
                                 <td>@asset.Series</td>
                                 <td>
-                                    <img src=@($"Assets/img/{asset.Name}.png") class="img-fluid rounded" style="max-width: 100px; height: auto;" />
+                                    <img src=@(GetImageService.GetImage(asset?.Name!,"Asset")) class="img-fluid rounded" style="max-width: 100px; height: auto;" />
                                 </td>
                                 <td>
-                                    @if (asset.Machines.Any())
+                                    @if (asset!.Machines.Any())
                                     {
                                         <ul class="list-unstyled mb-0">
                                             @foreach (var machine in asset.Machines)
