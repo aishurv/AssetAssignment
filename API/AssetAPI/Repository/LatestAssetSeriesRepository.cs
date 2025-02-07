@@ -2,7 +2,9 @@
 using MongoDB.Driver;
 using DataService.ExtensionMethods;
 using DataService.Model;
-namespace DataService.MongoDB
+using DataService.MongoDB;
+
+namespace AssetAPI.Repository
 {
     public class LatestAssetSeriesRepository
     {
@@ -11,7 +13,7 @@ namespace DataService.MongoDB
         {
             _latestSeries = DbContext.Database?.GetCollection<BsonDocument>("latest");
         }
-        public void Insert(string AssetName , string Series)
+        public void Insert(string AssetName, string Series)
         {
             var bsonDoc = _latestSeries.Find(new BsonDocument()).FirstOrDefault();
             if (bsonDoc == null)
@@ -26,12 +28,12 @@ namespace DataService.MongoDB
                 Update(AssetName, Series, bsonDoc);
             }
         }
-        
+
         public void Update(string Asset, string AssetSeries, BsonDocument bsonDoc)
         {
             var updateDefinition = new List<UpdateDefinition<BsonDocument>>();
 
-            if(bsonDoc.Contains(Asset))
+            if (bsonDoc.Contains(Asset))
             {
                 var UpdatedAssetSeries = AssetSeries.GetLatestSeries(bsonDoc[Asset].AsString);
                 if (UpdatedAssetSeries == AssetSeries)

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using DataService.Model;
-using DataService.MongoDB;
+using AssetAPI.Repository;
 namespace AssetAPI.Controllers
 {
     [Route("/")]
@@ -9,21 +9,49 @@ namespace AssetAPI.Controllers
     {
         private AssetRepository _assetRepository = new AssetRepository();
 
-
-        [HttpGet("/Assets")]
-        public async Task<IEnumerable<AssetData>> GetAssets()
+        /// <summary>
+        /// Get All Assets
+        /// </summary>
+        /// <returns> List of AssetData </returns>
+        [HttpGet("/assets")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAssets()
         {
-            return await _assetRepository.GetAll();
+            var assets = await _assetRepository.GetAll();
+            if (assets == null || assets.Count() == 0)
+                return NotFound();
+             return Ok(assets);
         }
-        [HttpGet("/Assets/{MachineModel}")]
-        public List<AssetData> GetAssetByMachineModel(string MachineModel)
+        /// <summary>
+        /// Get Assets By Machine Model Name 
+        /// </summary>
+        /// <returns> List of AssetData </returns>
+        /// 
+        [HttpGet("/assets/machine/{MachineModel}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetAssetByMachineModel(string MachineModel)
         {
-            return _assetRepository.GetAssetByMachineModel(MachineModel);
+            var assets = _assetRepository.GetAssetByMachineModel(MachineModel);
+            if (assets == null || assets.Count()==0)
+                return NotFound();
+            return Ok(assets);
         }
-        [HttpGet("/LatestAssets")]
-        public Dictionary<string,string> GetLatestAssets()
+        /// <summary>
+        /// Get Latest Series of Assets 
+        /// </summary>
+        /// <returns> List of AssetData </returns>
+        /// 
+        [HttpGet("/latestassets")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetLatestAssets()
         {
-            return _assetRepository.GetLatestAssets();
+            var assets = _assetRepository.GetLatestAssets();
+            if(assets == null || assets.Count()==0)
+                return NotFound();
+            return Ok(assets);
         }
 
     }

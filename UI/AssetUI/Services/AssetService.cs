@@ -10,17 +10,17 @@ namespace AssetUI.Services
         }
         public async Task<List<AssetData>> GetAllAsync()
         {
-            var assets = await _httpClient.GetFromJsonAsync<List<AssetData>>("Assets"); 
+            var assets = await _httpClient.GetFromJsonAsync<List<AssetData>>("assets"); 
             return assets?? [];
         }
         public async Task<Dictionary<string, string>> GetLatestAssetsAsync()
         {
-            var data = await _httpClient.GetFromJsonAsync<Dictionary<string, string>>("LatestAssets");
+            var data = await _httpClient.GetFromJsonAsync<Dictionary<string, string>>("latestassets");
             return data?? [];
         }
         public async Task<List<AssetData>> GetAssetByMachineModel(string machineModel)
         {
-            var req = "Assets/";
+            var req = "assets/machine/";
             machineModel= machineModel.Replace("{", "").Replace("}", "");
             req += machineModel;
             var data = await _httpClient.GetFromJsonAsync<List<AssetData>>(req);

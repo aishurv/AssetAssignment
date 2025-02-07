@@ -7,12 +7,17 @@ namespace AssetAPI.Controllers
     public class LoadData : ControllerBase
     {
         AddDataObjectToDB db = new AddDataObjectToDB();
+        /// <summary>
+        /// Loads Data From D:/Data.txt
+        /// </summary>
+        /// <returns> 200 Response After Loading </returns>
         [HttpGet("/loaddata")]
-        public async Task Loading()
+        public async Task<IActionResult> Loading()
         {
             txtToDataObject.LoadData();
-            await db.AddAssets();
-            await db.AddMachineData();
+            await db.AddAssets(txtToDataObject.Assets);
+            await db.AddMachineData(txtToDataObject.Machines);
+            return Ok();
         }
     }
 }

@@ -7,8 +7,8 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 AddDataObjectToDB addDataToDB = new AddDataObjectToDB();
 
-await addDataToDB.AddAssets();
-await addDataToDB.AddMachineData();
+await addDataToDB.AddAssets(txtToDataObject.Assets);
+await addDataToDB.AddMachineData(txtToDataObject.Machines);
 // Add services to the container.
 
 builder.Services.AddControllers();

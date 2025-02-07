@@ -1,4 +1,5 @@
-﻿using DataService.MongoDB;
+﻿using AssetAPI.Repository;
+using DataService.Model;
 
 namespace DataService.Data
 {
@@ -12,13 +13,13 @@ namespace DataService.Data
             _machineRepository = new MachineRepository();
         }
 
-        public async Task AddAssets()
+        public async Task AddAssets( List<AssetData> Assets)
         {
-            await _assetRepository.AddAssets(txtToDataObject.Assets);
+            await _assetRepository.AddAssets(Assets);
         }
-        public async Task AddMachineData()
+        public async Task AddMachineData(List<MachineData> Machines)
         {
-            await _machineRepository.AddMachinesData(txtToDataObject.Machines);
+            await _machineRepository.AddMachinesData(Machines);
         }
     }
 }

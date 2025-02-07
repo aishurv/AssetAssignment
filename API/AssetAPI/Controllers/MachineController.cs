@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DataService.MongoDB;
 using DataService.Model;
+using AssetAPI.Repository;
 namespace AssetAPI.Controllers
 {
     [Route("/")]
@@ -8,26 +8,63 @@ namespace AssetAPI.Controllers
     public class MachineController : ControllerBase
     {
         MachineRepository machineRepository = new MachineRepository();
-        [HttpGet("/Machines")]
-        public async Task<IEnumerable<MachineData>> GetAll()
-        {
-            return await machineRepository.GetAll();
-        }
+        /// <summary>
+        /// Get All Machines Data
+        /// </summary>
+        /// <returns> List of MachineData </returns>
 
-        [HttpGet("/Machine/{id}")]
-        public async Task<MachineData> GetById(string id)
+        [HttpGet("/machines")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetAll()
         {
-            return await machineRepository.GetById(id);
+            var machines = await machineRepository.GetAll();
+            if (machines == null)
+                return NotFound();
+            return Ok(machines);
         }
-        [HttpGet("/Machine/Asset/{AssetName}")]
-        public List<string> GetMachineModelByAssetName(string AssetName)
+        /// <summary>
+        /// Get machine by its model name
+        /// </summary>
+        /// <param name="MachineModel"></param>
+        /// <returns> return maodel name </returns>
+
+        [HttpGet("/machine/{MachineModel}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetById(string MachineModel)
         {
-            return machineRepository.GetMachineModelByAssetName(AssetName);
+            var machine = await machineRepository.GetById(MachineModel);
+            if (machine == null) 
+                return NotFound();
+            return Ok(machine);
         }
-        [HttpGet("/MachineWithLatestAssetSeries")]
-        public List<string> GetMachineWithLatestAssetSeries()
+        /// <summary>
+        /// Get Machine Model Names By Asset Name
+        /// </summary>
+        /// <param name="AssetName"></param>
+        /// <returns> List of Machine Model Names </returns>
+        [HttpGet("/machine/asset/{AssetName}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult GetMachineModelByAssetName(string AssetName)
         {
-            return machineRepository.MachineWithLatestAssetSeries();
+            var machineNames = machineRepository.GetMachineModelByAssetName(AssetName);
+            if (machineNames == null)
+                return NotFound();
+            return Ok(machineNames);
+        }
+        /// <summary>
+        /// List of Machine Model Name using All Latest Assets
+        /// </summary>
+        /// <returns>List of Machine Model Names</returns>
+        [HttpGet("/machines_with_latest_assetseries")]
+        public IActionResult GetMachineWithLatestAssetSeries()
+        {
+            var machineNames = machineRepository.MachineWithLatestAssetSeries();
+            if (machineNames == null)
+                return NotFound();
+            return Ok(machineNames);
         }
     }
 }

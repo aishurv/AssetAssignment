@@ -11,17 +11,17 @@ namespace AssetUI.Services
         }
         public async Task<List<MachineData>> GetAllAsync()
         {
-            var machines = await _httpClient.GetFromJsonAsync<List<MachineData>>("Machines");
+            var machines = await _httpClient.GetFromJsonAsync<List<MachineData>>("machines");
             return machines ?? [];
         }
         public async Task<List<string>> GetLatestAssetSeriesMachines()
         {
-            var machines = await _httpClient.GetFromJsonAsync<List<string>>("MachineWithLatestAssetSeries");
+            var machines = await _httpClient.GetFromJsonAsync<List<string>>("machines_with_latest_assetseries");
             return machines ?? [];
         }
         public async Task<List<string>> GetMachineModelByAssetName(string assetName)
         {
-            var req = "Machine/Asset/";
+            var req = "machine/asset/";
             assetName=assetName.Replace("{", "").Replace("}", "");
             req += assetName.Replace(" ","%20");
             var machines = await _httpClient.GetFromJsonAsync<List<string>>(req);
@@ -29,7 +29,7 @@ namespace AssetUI.Services
         }
         public async Task<MachineData> GetById(string id)
         {
-            var req = "Machine/";
+            var req = "machine/";
             id = id.Replace("{", "").Replace("}", "");
             req += id;
             var data = await _httpClient.GetFromJsonAsync<MachineData>(req);

@@ -1,6 +1,7 @@
 ﻿using DataService.Model;
+using DataService.MongoDB;
 using MongoDB.Driver;
-namespace DataService.MongoDB
+namespace AssetAPI.Repository
 {
 
     public class MachineRepository

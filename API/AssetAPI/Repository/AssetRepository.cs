@@ -1,8 +1,9 @@
 ﻿using DataService.Model;
+using DataService.MongoDB;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace DataService.MongoDB
+namespace AssetAPI.Repository
 {
     public class AssetRepository
     {
@@ -16,11 +17,11 @@ namespace DataService.MongoDB
         }
         public Task<List<AssetData>> GetAll()
         {
-           return _assetData.Find(FilterDefinition<AssetData>.Empty).ToListAsync();
+            return _assetData.Find(FilterDefinition<AssetData>.Empty).ToListAsync();
         }
         public List<AssetData> GetAssetByMachineModel(string machineModel)
         {
-           var assets = _assetData.Find(FilterDefinition<AssetData>.Empty).ToList();
+            var assets = _assetData.Find(FilterDefinition<AssetData>.Empty).ToList();
 
             return assets.Where(a => a.Machines.Contains(machineModel)).ToList();
         }
@@ -45,7 +46,7 @@ namespace DataService.MongoDB
                 await AddAsset(asset);
             }
         }
-        public Dictionary<string,string> GetLatestAssets()
+        public Dictionary<string, string> GetLatestAssets()
         {
             return _latestAssetSeriesRepository.GetLatestSeries();
         }
