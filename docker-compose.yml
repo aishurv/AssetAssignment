@@ -12,7 +12,7 @@ services:
       - "27017:27017"
 
   api:
-    image: asset_api:v1
+    image: aishurv/asset_api:v1
     container_name: assignment_api
     networks:
       - assignment_network
@@ -24,7 +24,7 @@ services:
       - mongodb
 
   ui:
-    build: UI/.
+    image: aishurv/asset_ui:v2
     container_name: assignment_ui
     networks:
       - assignment_network
