@@ -1,4 +1,5 @@
-﻿using DataService.Model;
+﻿using AssetAPI.Extraction;
+using DataService.Model;
 using DataService.MongoDB;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -15,15 +16,15 @@ namespace AssetAPI.Repository
         }
         public List<AssetData> GetAll()
         {
-            throw new NotImplementedException();
+            return _extraction.GetAllAssets(); 
         }
-        public List<AssetData> GetAssetByMachineModel(string machineModel)
+        public List<AssetSummary> GetAssetByMachineModel(string machineModel)
         {
-            throw new NotImplementedException();
+            return _extraction.GetAssetByMachineModel(machineModel);
         }
-        public Dictionary<string, string> GetLatestAssets()
+        public List<AssetSummary> GetLatestAssets()
         {
-            throw new NotImplementedException();
+            return _extraction.GetLatestAssets();
         }
 
     }

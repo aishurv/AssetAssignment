@@ -1,5 +1,6 @@
-﻿using DataService.Model;
-namespace AssetAPI.Repository
+﻿using AssetAPI.Repository;
+using DataService.Model;
+namespace AssetAPI.Extraction
 {
     public class MachineExtraction
     {
@@ -11,16 +12,7 @@ namespace AssetAPI.Repository
             _repository = new DataModelRepository();
             _assetMachineData = _repository.GetAll();
         }
-        public Dictionary<string,string> GetLatestAssets()
-        {
-            var LatestAssets = _assetMachineData!
-             .GroupBy(a => a.AssetName)
-            .ToDictionary(
-                g => g.Key,
-                g => g.Select(a => a.AssetSeries).Aggregate(GetLatestSeries)
-            );
-            return LatestAssets;
-        }
+
         public List<MachineData> GetAllMachines()
         {
             var machineData = _assetMachineData!
@@ -67,25 +59,26 @@ namespace AssetAPI.Repository
             .ToList();
             return machineModels ?? [];
         }
-        public List<string> GetMachineWithLatestAssets() 
+
+        public List<string> GetMachineWithLatestAssets()
         {
-            var latestAssetSeries = GetLatestAssets();
+            var latestAssetSeries = _assetMachineData?.GetLatestAssets();
+            
             var MachineWithLatestAssets = _assetMachineData?
             .GroupBy(a => a.MachineModel)
-            .Where(g => latestAssetSeries!.All(latest =>
-                g.Any(a => a.AssetName == latest.Key && a.AssetSeries == latest.Value)))
+            .ToDictionary(
+                g => g.Key,
+                g => g.Select(d => new AssetSummary
+                {
+                    Name = d.AssetName,
+                    Series = d.AssetSeries
+                }).ToList())
+            .Where(machine => machine.Value.All(asset =>
+                latestAssetSeries!.Any(latest => latest.Name == asset.Name && latest.Series == asset.Series)))
             .Select(g => g.Key)
             .ToList();
-            return MachineWithLatestAssets ?? [];
+            return MachineWithLatestAssets ?? ["Not Found !"];
         }
-        public static string GetLatestSeries(string s1, string s2)
-        {
-            if (s1 == null) return s2;
-            if (s2 == null) return s1;
-            var n1 = int.Parse(s1[1..]); //var n1 = int.Parse(s1.Substring(1));
-            var n2 = int.Parse(s2[1..]); // var n2 = int.Parse(s2.Substring(1));
 
-            return n1 > n2 ? s1 : s2;
-        }
     }
 }

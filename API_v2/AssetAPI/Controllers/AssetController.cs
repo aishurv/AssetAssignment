@@ -16,10 +16,10 @@ namespace AssetAPI.Controllers
         [HttpGet("/assets")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAssets()
+        public IActionResult GetAssets()
         {
-            var assets = await _assetRepository.GetAll();
-            if (assets == null || assets.Count() == 0)
+            var assets = _assetRepository.GetAll();
+            if (assets == null)
                 return NotFound();
              return Ok(assets);
         }

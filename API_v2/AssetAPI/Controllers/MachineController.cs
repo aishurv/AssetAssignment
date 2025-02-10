@@ -18,7 +18,7 @@ namespace AssetAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAll()
         {
-            var machines = await machineRepository.GetAll();
+            var machines = machineRepository.GetAll();
             if (machines == null)
                 return NotFound();
             return Ok(machines);
@@ -34,7 +34,7 @@ namespace AssetAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(string MachineModel)
         {
-            var machine = await machineRepository.GetById(MachineModel);
+            var machine = machineRepository.GetById(MachineModel);
             if (machine == null) 
                 return NotFound();
             return Ok(machine);

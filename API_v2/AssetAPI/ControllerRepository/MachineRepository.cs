@@ -1,6 +1,5 @@
-﻿using DataService.Model;
-using DataService.MongoDB;
-using MongoDB.Driver;
+﻿using AssetAPI.Extraction;
+using DataService.Model;
 namespace AssetAPI.Repository
 {
 

@@ -1,6 +1,7 @@
-﻿using DataService.Model;
+﻿using AssetAPI.Repository;
+using DataService.Model;
 
-namespace AssetAPI.Repository
+namespace AssetAPI.Extraction
 {
     public class AssetExtraction
     {
@@ -15,18 +16,30 @@ namespace AssetAPI.Repository
         public List<AssetData> GetAllAssets()
         {
             var assets = _assetMachineData?
-            .GroupBy(a => new { a.AssetName, a.AssetSeries }) // Group by both Name & Series
+            .GroupBy(a => new { a.AssetName, a.AssetSeries })
             .Select(g => new AssetData
             {
                 Name = g.Key.AssetName,
                 Series = g.Key.AssetSeries,
                 Machines = g.Select(a => a.MachineModel).Distinct().ToList()
             })
-            .OrderBy(a => a.Name) // Optional: Order alphabetically
-            .ThenBy(a => int.Parse(a.Series[1..])) // Order numerically by Series
             .ToList();
             return assets ?? [];
         }
-
+        public List<AssetSummary> GetLatestAssets()
+        {
+            return _assetMachineData!.GetLatestAssets();
+        }
+        public List<AssetSummary> GetAssetByMachineModel(string machineModel)
+        {
+            var assets = _assetMachineData?
+                .Where(machine => machine.MachineModel == machineModel)
+                .Select (ad => new AssetSummary
+                {
+                    Name = ad.AssetName,
+                    Series = ad.AssetSeries
+                }).ToList();
+            return assets ?? [];
+        }
     }
 }
