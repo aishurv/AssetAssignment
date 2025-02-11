@@ -2,9 +2,9 @@
 
 namespace DataService.MongoDB
 {
-    public class DbContext
+    internal class DbContext
     {
-        private static readonly IMongoDatabase? _database;
+        private static readonly IMongoDatabase _database;
 
         static DbContext()
         {
@@ -14,6 +14,6 @@ namespace DataService.MongoDB
             var mongoClient = new MongoClient(mongoUrl);
             _database = mongoClient.GetDatabase("AssetData");
         }
-        public static IMongoDatabase? Database => _database;
+        public static IMongoDatabase Database => _database;
     }
 }

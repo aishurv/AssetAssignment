@@ -6,12 +6,11 @@ using MongoDB.Driver;
 
 namespace AssetAPI.Extraction
 {
-    public static class LatestAssetExtension
+    internal static class LatestAssetExtension
     {
-        
-        public static List<AssetSummary> GetLatestAssets( this List<DataModel> _assetMachineData)
+        public static List<AssetSummary> GetLatestAssets( this List<MachineAssetSeries> _assetMachineData)
         {
-            var LatestAssets = _assetMachineData!
+            var LatestAssets = _assetMachineData
              .GroupBy(a => a.AssetName)
             .Select(g => new AssetSummary
             {
@@ -19,12 +18,12 @@ namespace AssetAPI.Extraction
                 Series = g.Select(a => a.AssetSeries).Aggregate(GetLatestSeries)
             })
             .ToList();
-            return LatestAssets!;
+            return LatestAssets;
         }
         private static string GetLatestSeries(string s1, string s2)
         {
-            if (s1 == null) return s2;
-            if (s2 == null) return s1;
+            if (s1 is null) return s2;
+            if (s2 is null) return s1;
             var n1 = int.Parse(s1[1..]); //var n1 = int.Parse(s1.Substring(1));
             var n2 = int.Parse(s2[1..]); // var n2 = int.Parse(s2.Substring(1));
 

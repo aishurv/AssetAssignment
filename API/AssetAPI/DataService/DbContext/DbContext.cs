@@ -8,7 +8,7 @@ namespace DataService.MongoDB
 
         static DbContext()
         {
-            var connectionString = "mongodb://assignment_mongodb:27017";  //"mongodb://localhost:27017";//_configuration.GetConnectionString("DbConnection");
+            var connectionString = "mongodb://localhost:27017";  //"mongodb://localhost:27017";//_configuration.GetConnectionString("DbConnection");
             //"mongodb://mongodb:27017"; assignment_mongodb
             var mongoUrl = MongoUrl.Create(connectionString);
             var mongoClient = new MongoClient(mongoUrl);

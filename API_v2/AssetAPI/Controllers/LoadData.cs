@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 namespace AssetAPI.Controllers
 {
+    /// <summary>
+    /// Data Loading 
+    /// </summary>
     [Route("/")]
     [ApiController]
     public class LoadData : ControllerBase
     {
-        AddDataObjectToDB db = new AddDataObjectToDB();
         /// <summary>
         /// Loads Data From D:/Data.txt
         /// </summary>
@@ -14,8 +16,8 @@ namespace AssetAPI.Controllers
         [HttpGet("/loaddata")]
         public async Task<IActionResult> Loading()
         {
-            txtToDataObject.LoadData();
-            await db.AddDataList(txtToDataObject.DataFromFile);
+            DataObjectFromtxt.LoadData();
+            await AddDataObjectToDB.AddDataListAsync(DataObjectFromtxt.DataFromFile);
             return Ok();
         }
     }

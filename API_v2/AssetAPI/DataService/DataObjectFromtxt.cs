@@ -1,17 +1,17 @@
 ﻿using DataService.Model;
 namespace DataService.Data
 {
-    public static class txtToDataObject
+    internal static class DataObjectFromtxt
     {
         static string FilePath = "D:/Data.txt"; //   D: /app
-        public static List<DataModel> DataFromFile = [];
-        static txtToDataObject()
+        public static List<MachineAssetSeries> DataFromFile = [];
+        static DataObjectFromtxt()
         {
             LoadData();
         }
         public static void LoadData()
         {
-            DataFromFile = new List<DataModel>();
+            DataFromFile = new List<MachineAssetSeries>();
 
             using (StreamReader sr = new StreamReader(FilePath))
             {
@@ -21,7 +21,7 @@ namespace DataService.Data
                     string[] values = line.Split(',')
                                                  .Select(value => value.Trim())
                                                  .ToArray();
-                    DataFromFile.Add(new DataModel
+                    DataFromFile.Add(new MachineAssetSeries
                     {
                         MachineModel = values[0],
                         AssetName = values[1],

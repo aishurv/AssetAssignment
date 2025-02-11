@@ -15,7 +15,7 @@ namespace AssetAPI.Repository
             _assetData = DbContext.Database?.GetCollection<AssetData>("asset");
             _latestAssetSeriesRepository = new LatestAssetSeriesRepository();
         }
-        public Task<List<AssetData>> GetAll()
+        public Task<List<AssetData>?> GetAll()
         {
             return _assetData.Find(FilterDefinition<AssetData>.Empty).ToListAsync();
         }
@@ -49,6 +49,14 @@ namespace AssetAPI.Repository
         public Dictionary<string, string> GetLatestAssets()
         {
             return _latestAssetSeriesRepository.GetLatestSeries();
+        }
+
+        public AssetData GetAssetByNameAsync(string name)
+        {
+            AssetData? assetData = _assetData.Find(_ => _.Name == name).FirstOrDefault();
+            return assetData == null ?
+                throw new Exception($"There is no asset found for name ={name}")
+            : assetData;
         }
         public async Task DeleteAll()
         {

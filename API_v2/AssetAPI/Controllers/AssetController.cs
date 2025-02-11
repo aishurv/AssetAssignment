@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DataService.Model;
-using AssetAPI.Repository;
+using AssetAPI.Extraction;
 namespace AssetAPI.Controllers
 {
+    /// <summary>
+    /// Asset Controller
+    /// </summary>
     [Route("/")]
     [ApiController]
     public class AssetController : ControllerBase
     {
-        private AssetRepository _assetRepository = new AssetRepository();
+        //[Inject]
+        private readonly AssetService _assetService = new AssetService();
 
         /// <summary>
         /// Get All Assets
@@ -18,7 +21,7 @@ namespace AssetAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAssets()
         {
-            var assets = _assetRepository.GetAll();
+            var assets = _assetService.GetAllAssets();
             if (assets == null)
                 return NotFound();
              return Ok(assets);
@@ -33,7 +36,7 @@ namespace AssetAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetAssetByMachineModel(string MachineModel)
         {
-            var assets = _assetRepository.GetAssetByMachineModel(MachineModel);
+            var assets = _assetService.GetAssetByMachineModel(MachineModel);
             if (assets == null || assets.Count()==0)
                 return NotFound();
             return Ok(assets);
@@ -48,7 +51,7 @@ namespace AssetAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetLatestAssets()
         {
-            var assets = _assetRepository.GetLatestAssets();
+            var assets = _assetService.GetLatestAssets();
             if(assets == null || assets.Count()==0)
                 return NotFound();
             return Ok(assets);

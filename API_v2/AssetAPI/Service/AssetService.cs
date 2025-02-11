@@ -3,19 +3,19 @@ using DataService.Model;
 
 namespace AssetAPI.Extraction
 {
-    public class AssetExtraction
+    internal class AssetService
     {
-        private List<DataModel>? _assetMachineData;
-        private DataModelRepository _repository;
+        private List<MachineAssetSeries> _assetMachineData;
+        private AssetMachineRepository _repository;
 
-        public AssetExtraction()
+        public AssetService()
         {
-            _repository = new DataModelRepository();
+            _repository = new AssetMachineRepository();
             _assetMachineData = _repository.GetAll();
         }
         public List<AssetData> GetAllAssets()
         {
-            var assets = _assetMachineData?
+            var assets = _assetMachineData
             .GroupBy(a => new { a.AssetName, a.AssetSeries })
             .Select(g => new AssetData
             {
@@ -24,7 +24,7 @@ namespace AssetAPI.Extraction
                 Machines = g.Select(a => a.MachineModel).Distinct().ToList()
             })
             .ToList();
-            return assets ?? [];
+            return assets;
         }
         public List<AssetSummary> GetLatestAssets()
         {
@@ -32,14 +32,14 @@ namespace AssetAPI.Extraction
         }
         public List<AssetSummary> GetAssetByMachineModel(string machineModel)
         {
-            var assets = _assetMachineData?
+            var assets = _assetMachineData
                 .Where(machine => machine.MachineModel == machineModel)
-                .Select (ad => new AssetSummary
+                .Select (data => new AssetSummary
                 {
-                    Name = ad.AssetName,
-                    Series = ad.AssetSeries
+                    Name = data.AssetName,
+                    Series = data.AssetSeries
                 }).ToList();
-            return assets ?? [];
+            return assets ;
         }
     }
 }

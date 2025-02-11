@@ -1,8 +1,6 @@
-﻿using System.Xml.Linq;
-
-namespace DataService.Model
+﻿namespace DataService.Model
 {
-    public class DataModel
+    internal class MachineAssetSeries
     {
         public string _id{
             get

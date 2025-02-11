@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AssetAPI</name>
+    </assembly>
+    <members>
+        <member name="M:AssetAPI.Controllers.AssetController.GetAssets">
+            <summary>
+            Get All Assets
+            </summary>
+            <returns> List of AssetData </returns>
+        </member>
+        <member name="M:AssetAPI.Controllers.AssetController.GetAssetByMachineModel(System.String)">
+            <summary>
+            Get Assets By Machine Model Name 
+            </summary>
+            <returns> List of AssetData </returns>
+            
+        </member>
+        <member name="M:AssetAPI.Controllers.AssetController.GetLatestAssets">
+            <summary>
+            Get Latest Series of Assets 
+            </summary>
+            <returns> List of AssetData </returns>
+            
+        </member>
+        <member name="M:AssetAPI.Controllers.LoadData.Loading">
+            <summary>
+            Loads Data From D:/Data.txt
+            </summary>
+            <returns> 200 Response After Loading </returns>
+        </member>
+        <member name="M:AssetAPI.Controllers.MachineController.GetAll">
+            <summary>
+            Get All Machines Data
+            </summary>
+            <returns> List of MachineData </returns>
+        </member>
+        <member name="M:AssetAPI.Controllers.MachineController.GetById(System.String)">
+            <summary>
+            Get machine by its model name
+            </summary>
+            <param name="MachineModel"></param>
+            <returns> return maodel name </returns>
+        </member>
+        <member name="M:AssetAPI.Controllers.MachineController.GetMachineModelByAssetName(System.String)">
+            <summary>
+            Get Machine Model Names By Asset Name
+            </summary>
+            <param name="AssetName"></param>
+            <returns> List of Machine Model Names </returns>
+        </member>
+        <member name="M:AssetAPI.Controllers.MachineController.GetMachineWithLatestAssetSeries">
+            <summary>
+            List of Machine Model Name using All Latest Assets
+            </summary>
+            <returns>List of Machine Model Names</returns>
+        </member>
+    </members>
+</doc>

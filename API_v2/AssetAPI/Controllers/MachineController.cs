@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using DataService.Model;
-using AssetAPI.Repository;
+using AssetAPI.Extraction;
+using Microsoft.VisualBasic;
 namespace AssetAPI.Controllers
 {
+    /// <summary>
+    /// Machine Controller 
+    /// </summary>
     [Route("/")]
     [ApiController]
     public class MachineController : ControllerBase
     {
-        MachineRepository machineRepository = new MachineRepository();
+        private readonly MachineService _machineService = new MachineService();
         /// <summary>
         /// Get All Machines Data
         /// </summary>
@@ -15,13 +18,18 @@ namespace AssetAPI.Controllers
 
         [HttpGet("/machines")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetAll()
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetAll()
         {
-            var machines = machineRepository.GetAll();
-            if (machines == null)
-                return NotFound();
-            return Ok(machines);
+            try
+            {
+                var machines = _machineService.GetAllMachines();
+                return Ok(machines);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         /// <summary>
         /// Get machine by its model name
@@ -32,12 +40,11 @@ namespace AssetAPI.Controllers
         [HttpGet("/machine/{MachineModel}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetById(string MachineModel)
+        public  IActionResult GetById(string MachineModel)
         {
-            var machine = machineRepository.GetById(MachineModel);
-            if (machine == null) 
-                return NotFound();
-            return Ok(machine);
+            var machine =  _machineService.GetMachineById(MachineModel);
+            
+                return machine == null ? NotFound():Ok(machine);
         }
         /// <summary>
         /// Get Machine Model Names By Asset Name
@@ -49,8 +56,8 @@ namespace AssetAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult GetMachineModelByAssetName(string AssetName)
         {
-            var machineNames = machineRepository.GetMachineModelByAssetName(AssetName);
-            if (machineNames == null)
+            var machineNames = _machineService.GetMachineModelsByAssetName(AssetName);
+            if (machineNames.Count == 0)
                 return NotFound();
             return Ok(machineNames);
         }
@@ -61,8 +68,8 @@ namespace AssetAPI.Controllers
         [HttpGet("/machines_with_latest_assetseries")]
         public IActionResult GetMachineWithLatestAssetSeries()
         {
-            var machineNames = machineRepository.MachineWithLatestAssetSeries();
-            if (machineNames == null)
+            var machineNames = _machineService.GetMachineWithLatestAssets();
+            if (machineNames.Count == 0)
                 return NotFound();
             return Ok(machineNames);
         }

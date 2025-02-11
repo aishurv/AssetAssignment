@@ -7,6 +7,7 @@ namespace AssetAPI.Controllers
     [ApiController]
     public class AssetController : ControllerBase
     {
+        //ToDo: Add interface of this repository and inject in the program.cs 
         private AssetRepository _assetRepository = new AssetRepository();
 
         /// <summary>
@@ -18,7 +19,7 @@ namespace AssetAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetAssets()
         {
-            var assets = await _assetRepository.GetAll();
+            List<AssetData>? assets = await _assetRepository.GetAll();
             if (assets == null || assets.Count() == 0)
                 return NotFound();
              return Ok(assets);
@@ -52,6 +53,12 @@ namespace AssetAPI.Controllers
             if(assets == null || assets.Count()==0)
                 return NotFound();
             return Ok(assets);
+        }
+
+        [HttpGet("/asset-by-name")]
+        public AssetData GetAssetByName(string assetName)
+        {
+            return _assetRepository.GetAssetByNameAsync(assetName);
         }
 
     }
